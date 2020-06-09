@@ -21,7 +21,7 @@ if ( ! class_exists( 'YamsUtils' ) )
     public static function IsUTF8()
     {
       global $modx;      
-      if ( $modx->getConfig('modx_charset') == 'UTF-8')
+      if ( $modx->config['modx_charset'] == 'UTF-8')
       {
         return TRUE;
       }
@@ -31,7 +31,7 @@ if ( ! class_exists( 'YamsUtils' ) )
     public static function CharSet()
     {
       global $modx;
-      return $modx->getConfig('modx_charset');
+      return $modx->config['modx_charset'];
     }
 
     public static function UTF8Modifier()
@@ -85,7 +85,7 @@ if ( ! class_exists( 'YamsUtils' ) )
       
       // This function counts the number of characters (not bytes) in a string.
       // strlen returns the number of bytes.
-      $encoding = $modx->getConfig('charset');
+      $encoding = $modx->config['charset'];
 
       if ( $encoding != 'UTF-8' )
       {

@@ -1394,7 +1394,7 @@ abstract class YamsConfigMgrAbstract extends Singleton
       , $langTags
       , $parsedLangTags
     );
-    if (is_countable($parsedLangTags[1]) && ( count( $parsedLangTags[1] ) < 1 ))
+    if ( count( $parsedLangTags[1] ) < 1 )
     {
       return FALSE;
     }
