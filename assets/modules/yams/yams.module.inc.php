@@ -999,12 +999,7 @@ if (is_countable($errorText) && ( count( $errorText ) > 0 ))
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx->getConfig('modx_charset'); ?>" />
     <title>YAMS Module Configuration</title>
     <link rel="stylesheet" type="text/css" href="media/style/<?php echo $modx->getConfig('manager_theme'); ?>/style.css" ></link>
-    <script type="text/javascript" src="media/script/scriptaculous/prototype.js"></script>
-    <script type="text/javascript" src="media/script/scriptaculous/scriptaculous.js"></script>
-    <script type="text/javascript" src="media/script/modx.js" ></script>
-    <script type="text/javascript" src="media/script/cb2.js" ></script>
     <script type="text/javascript" src="media/script/tabpane.js" ></script>
-    <script type="text/javascript" src="media/script/datefunctions.js" ></script>
   </head>
   <body>
     <h1 style="text-align: center;">YAMS: Yet Another Multilingual Solution</h1>
@@ -1075,7 +1070,7 @@ if (is_countable($errorText) && ( count( $errorText ) > 0 ))
               </dl>
               <p><strong>Version History</strong>:</p>
               <p>Latest history in README.md: <a href="https://github.com/Deesen/YAMS/blob/master/assets/modules/yams/README.md" target="_blank">https://github.com/Deesen/YAMS</a></p>
-            </ >
+            </div>
 
 
             <div class="tab-page" id="tabLanguages">

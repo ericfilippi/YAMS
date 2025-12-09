@@ -84,6 +84,8 @@ if ( ! class_exists( 'YAMS' ) )
     // --
     // -- Public Stuff
     // --
+    //
+    public $itsEncodingModifier = '';
 
     public function GetVersion()
     {
@@ -106,7 +108,7 @@ if ( ! class_exists( 'YAMS' ) )
       {
         // Could return NULL here and do some error analysis...
         return FALSE;
-      }      
+      }
       if ( $this->itsMODx->config[ 'use_alias_path' ] )
       {
         // Get all documents with the same parent...
@@ -204,7 +206,7 @@ if ( ! class_exists( 'YAMS' ) )
       $this->itsYamsCounter = $num;
       return TRUE;
     }
-    
+
     public function ConstructURL(
       $langId = NULL
       , $docId = NULL
@@ -278,7 +280,7 @@ if ( ! class_exists( 'YAMS' ) )
           return '';
         }
         $virtualPath = '/' . $virtualPath;
-        
+
       }
 
       if ( $includeGetParams )
@@ -310,7 +312,7 @@ if ( ! class_exists( 'YAMS' ) )
           array( $this->itsLangQueryParam => $langId )
           + $get;
       }
-        
+
       if ( array_key_exists( 'q', $get ) )
       {
         unset( $get[ 'q' ] );
@@ -319,7 +321,7 @@ if ( ! class_exists( 'YAMS' ) )
       {
         unset( $get[ 'id' ] );
       }
-      
+
       if ( $includeVirtualPath )
       {
         if ( ! $this->itsMODx->config['friendly_urls'] )
@@ -330,7 +332,7 @@ if ( ! class_exists( 'YAMS' ) )
           // $decodedQueryParams[ 'id' ] = $docId;
         }
       }
-      
+
       $requestURI = '';
       if (is_countable($get) && ( count( $get ) > 0 ))
       {
@@ -348,7 +350,7 @@ if ( ! class_exists( 'YAMS' ) )
                       . '='
                       . YamsUtils::UrlEncode( $value );
             };
-          
+
         }
         unset( $get );
         $querySeparator = $this->itsInputQuerySeparator;
@@ -359,7 +361,7 @@ if ( ! class_exists( 'YAMS' ) )
               , $encodedQueryParams
             );
       }
-      
+
       $url =
         $protocol
         . $serverNameAndPort
@@ -447,7 +449,7 @@ if ( ! class_exists( 'YAMS' ) )
       {
         return '';
       }
-      
+
       // Gets the caption to use for a template variable in the
       // given MODx manager language
       $englishFilename =
@@ -478,7 +480,7 @@ if ( ! class_exists( 'YAMS' ) )
       }
 
       return '';
-      
+
     }
 
     public function GetEncodingModifier()
@@ -614,7 +616,7 @@ if ( ! class_exists( 'YAMS' ) )
             $counter++;
             $rootName = $this->GetRootName( $langId );
             $serverName = $this->GetServerName( $langId );
-            
+
             if ( $rootName != '' )
             {
               $rootName = $rootName . '/';
@@ -646,7 +648,7 @@ if ( ! class_exists( 'YAMS' ) )
                 . PHP_EOL;
           }
         }
-        
+
         // Monolingual pages
         $counter++;
         $rootName = $this->GetRootName( NULL );
@@ -1098,7 +1100,7 @@ if ( ! class_exists( 'YAMS' ) )
       }
       return FALSE;
     }
-    
+
     public function IsMultilingualDocument(
       $docId = NULL
 //      , $template = NULL
@@ -1439,7 +1441,7 @@ if ( ! class_exists( 'YAMS' ) )
         // Try again
         return FALSE;
       }
-      
+
 
       // Do automatic conversion of quoted URLs
       $outputURLFormat = NULL;
@@ -1540,7 +1542,7 @@ if ( ! class_exists( 'YAMS' ) )
       }
 
       $content = $this->itsMODx->mergeSettingsContent( $content );
-      
+
       $hash = md5( $content );
       $content = $this->itsMODx->evalSnippets( $content );
       if ( md5( $content ) != $hash )
@@ -1548,7 +1550,7 @@ if ( ! class_exists( 'YAMS' ) )
         // Try again
         return FALSE;
       }
-      
+
       $this->itsCallbackDocId = $docId;
       $this->itsCallbackIsMultilingualDocument = $isMultilingualDocument;
 
@@ -1574,7 +1576,7 @@ if ( ! class_exists( 'YAMS' ) )
       // Time to let MODx take over with the snippet calls...
 
       $this->itsLastContentHash = md5( $content );
-      
+
       return TRUE;
     }
 
@@ -1616,7 +1618,7 @@ if ( ! class_exists( 'YAMS' ) )
           return TRUE;
         }
       }
-      
+
       if ( is_null( $isMultilingualDocument ) )
       {
         $isMultilingualDocument = $this->IsMultilingualDocument(
@@ -1656,7 +1658,7 @@ if ( ! class_exists( 'YAMS' ) )
 //      {
 //        $content = '<!--4-->';
 //      }
-      
+
       // Extract all yams-in blocks, store them in an array
       // and replace them by (yams-out/) placeholders
       $content
@@ -1693,7 +1695,7 @@ if ( ! class_exists( 'YAMS' ) )
             , -1
             , $count
           );
-          
+
         if ( is_string( $this->itsYamsRepeatContent[ $counter ][ 'currentLangContent' ] ) )
         {
           $this->itsYamsRepeatContent[ $counter ][ 'currentLangContent' ]
@@ -1726,8 +1728,8 @@ if ( ! class_exists( 'YAMS' ) )
         }
         $oldParseLangId = $this->itsParseLangId;
         $oldSelectLangId = $this->itsSelectLangId;
-        
-        $this->itsParseLangId = $langId;        
+
+        $this->itsParseLangId = $langId;
         $this->itsSelectLangId = $langId;
 
         $optimisedOutputArray[ $langId ] = $content;
@@ -2154,7 +2156,7 @@ if ( ! class_exists( 'YAMS' ) )
               $redirectStatus = $this->itsHTTPStatusNotDefault;
             }
           }
-          
+
           $success = $this->RedirectToCanonicalURL(
             $docId
             , $langId
@@ -2216,7 +2218,7 @@ if ( ! class_exists( 'YAMS' ) )
         {
           $status = $this->itsHTTPStatusNotDefault;
         }
-      
+
         // Redirect to the chosen language
         $url = $this->ConstructURL(
             $chosenLangId
@@ -2379,7 +2381,7 @@ if ( ! class_exists( 'YAMS' ) )
         $outLangId = $this->itsRequestLangId;
         return $this->itsIsValidMultilingualDocument;
       }
-      
+
 //      if ( ! ( $this->itsRequestLangId === FALSE ) )
 //      {
 //        $outLangId = $this->itsRequestLangId;
@@ -2537,7 +2539,7 @@ if ( ! class_exists( 'YAMS' ) )
           , $requestURI
           );
         $noQueryRequestURI = $splitRequestURI[0];
-        
+
         $aliasEscaped = '(index\.php|)';
         if ( array_key_exists( 'q', $_GET ) )
         {
@@ -2578,7 +2580,7 @@ if ( ! class_exists( 'YAMS' ) )
           return $this->itsIsValidMultilingualDocument;
         }
         $urlRootName = $matches[2];
-        
+
         // Loop over each language
         foreach ( $this->itsActiveLangIds as $langId )
         {
@@ -2614,7 +2616,7 @@ if ( ! class_exists( 'YAMS' ) )
       //
       // In that case it should be possible to identify the document
       // and language from the url alone
-      
+
       $docId = NULL;
       $langId = NULL;
 
@@ -2656,7 +2658,7 @@ if ( ! class_exists( 'YAMS' ) )
       {
         $suffixMatch = '(' . preg_quote( $this->itsMODx->config['friendly_url_suffix'], '/' ) . ')';
       }
-      
+
       $virtualAlias = preg_replace(
         '/^'
           . preg_quote( $this->itsMODx->config['friendly_url_prefix'], '/' )
@@ -2711,7 +2713,7 @@ if ( ! class_exists( 'YAMS' ) )
         $targetAlias = $this->itsDocAliases[ $langId ][ $parentId ];
         if ( $virtualAlias != $targetAlias )
         {
-          
+
           $targetAlias = $this->itsMODx->config['friendly_url_prefix']
             . $targetAlias
             . $this->itsDocSuffixes[ $parentId ];
@@ -2723,12 +2725,12 @@ if ( ! class_exists( 'YAMS' ) )
             return NULL;
           }
         }
-        
+
       }
       return $docId;
 
     }
-    
+
     public function GetDocumentIdentifier( $q, $langId )
     {
       $docId = NULL;
@@ -2792,7 +2794,7 @@ if ( ! class_exists( 'YAMS' ) )
       {
         $suffixMatch = '(' . preg_quote( $this->itsMODx->config['friendly_url_suffix'], '/' ) . ')';
       }
-      
+
       $virtualAlias = preg_replace(
         '/^'
           . preg_quote( $this->itsMODx->config['friendly_url_prefix'], '/' )
@@ -2811,6 +2813,7 @@ if ( ! class_exists( 'YAMS' ) )
         );
       $nMatchingVirtualAliases = 0;
       $nMatchingStandardAliases = 0;
+      $nMatchingAliases = (isset($nMatchingAliases)) ? $nMatchingAliases : 0;
       foreach ( $this->itsDocAliases as $langId => &$docAliases )
       {
         // handle fact that the alias may be associated with multiple documents...
@@ -3122,7 +3125,7 @@ if ( ! class_exists( 'YAMS' ) )
       $stc  = $this->itsMODx->getFullTableName('site_tmplvar_contentvalues');
 
       $friendlyURLSuffix = $this->itsMODx->config['friendly_url_suffix'];
-      
+
       $this->itsDocAliases = array();
       foreach ( $this->itsActiveLangIds as $langId )
       {
@@ -3139,7 +3142,7 @@ if ( ! class_exists( 'YAMS' ) )
           $aliasNameArray[] = '\'alias_' . $this->itsMODx->db->escape( $langId ) . '\'';
         }
         $aliasList = implode( ',', $aliasNameArray );
-        
+
         $nMonoDocs = (is_countable($this->itsMonolingualDocIds)) ? count( $this->itsMonolingualDocIds ) : 0;
         if ( $nMonoDocs > 0 )
         {
@@ -3305,7 +3308,7 @@ if ( ! class_exists( 'YAMS' ) )
           }
         }
       }
-      
+
     }
 
     private function GetDocumentAliasInfo(
@@ -3389,7 +3392,7 @@ if ( ! class_exists( 'YAMS' ) )
         , $activeTemplateList
         );
       $this->itsMonolingualDocIds = $this->itsMODx->db->getColumn( 'id', $result );
-      
+
     }
 
 //    private function BuildMonolingualContentQuery( $contentCache )
@@ -3635,7 +3638,7 @@ if ( ! class_exists( 'YAMS' ) )
           {
             $langId = $this->itsDefaultLangId;
           }
-          $link = 
+          $link =
             $this->ConstructURL(
               $langId
               , $docId
@@ -3652,7 +3655,7 @@ if ( ! class_exists( 'YAMS' ) )
         }
         else
         {
-          $output = 
+          $output =
             $this->ConstructURL(
               NULL
               , $docId
@@ -4015,7 +4018,7 @@ if ( ! class_exists( 'YAMS' ) )
             . '(/yams-select:' . $yamsCounter . ')';
         }
       }
-      
+
     }
 
 //    private function GetLanguageList(
@@ -4373,7 +4376,7 @@ if ( ! class_exists( 'YAMS' ) )
       }
       return $success;
     }
-  
+
     private function MergeChunkContent( &$content )
     {
       // Returns true if the content has been changed.
@@ -4381,12 +4384,12 @@ if ( ! class_exists( 'YAMS' ) )
       // This is similar to the MODx function, except
       // - it performs fewer sql queries
       // - it doesn't delete chunks that have not been recognised.
-      
+
       $find = array();
       $replace= array();
       $fromDB = array();
       $matches= array();
-      
+
       $nMatches = preg_match_all(
         '/\{\{(.+)\}\}/U'
           . $this->itsUTF8Modifier
@@ -4425,7 +4428,7 @@ if ( ! class_exists( 'YAMS' ) )
           {
             $row = $this->itsMODx->db->getRow( $result );
             $this->itsMODx->chunkCache[ $row['name'] ] = $row['snippet'];
-            
+
             $find[] =
               '/\{\{' . preg_quote( $row['name'], '/' ) . '\}\}/'
               . $this->itsUTF8Modifier;
@@ -4492,7 +4495,7 @@ if ( ! class_exists( 'YAMS' ) )
       //
       // This is similar to the MODx function, except
       // - it doesn't delete dvs/tvs that have not been recognised.
-      
+
       $find= array();
       $replace= array();
       $nMatches = preg_match_all(
@@ -4539,7 +4542,7 @@ if ( ! class_exists( 'YAMS' ) )
       }
       return TRUE;
     }
-    
+
     private function MergeOtherDocumentContent( &$content )
     {
       // Parses (yams_data:{docId:}tv{:phx}) placeholders.
@@ -4665,7 +4668,7 @@ if ( ! class_exists( 'YAMS' ) )
         }
         $docCache[ $name ][ $match ] = $phx;
       }
-      
+
       // Now loop over the tv array cache and write an SQL statement
       // that will grab the information from the database
       // a maximum of YAMS_DOC_LIMIT docs at a time
@@ -4732,7 +4735,7 @@ if ( ! class_exists( 'YAMS' ) )
           $tvDisplayParams = &$row[ 'display_params'];
           $tvType = &$row[ 'type'];
           $matches = &$tvInfo[ $docId ][ $tvName ];
-          
+
           include_once $basepath . '/tmplvars.format.inc.php';
           include_once $basepath . '/tmplvars.commands.inc.php';
           $w = '100%';
@@ -4746,13 +4749,13 @@ if ( ! class_exists( 'YAMS' ) )
               , $tvType
               )
           );
-          
+
           foreach ( $matches as $match => $phx )
           {
             $find[] = $match;
             $replace[] = $escapedvalue;
             // TO DO: PHx stuff...
-          }          
+          }
         }
         if (is_countable($find) && ( count( $find ) == 0 ))
         {
@@ -4774,14 +4777,14 @@ if ( ! class_exists( 'YAMS' ) )
       $nDocs = (is_countable($docIds)) ? count( $docIds ) : 0;
       $sc   = $this->itsMODx->getFullTableName('site_content');
       $dg   = $this->itsMODx->getFullTableName('document_groups');
-      
+
       // get document groups for current user
       $docgrp = $this->itsMODx->getUserDocGroups();
       if ( is_array( $docgrp ) )
       {
           $docgrp = implode( ',', $docgrp );
       }
-      
+
       // get document
       if ( $this->itsMODx->isFrontend() )
       {
@@ -4877,7 +4880,7 @@ if ( ! class_exists( 'YAMS' ) )
               $replace[] = '';
               // TO DO: PHx stuff...
             }
-          }          
+          }
         }
         if (is_countable($find) && ( count( $find ) == 0 ))
         {
@@ -4893,7 +4896,7 @@ if ( ! class_exists( 'YAMS' ) )
 
       return $contentChanged;
     }
-    
+
 //    private function ParseChunkCallback( $matches )
 //    {
 //      $chunkName = $matches[1];
@@ -5105,7 +5108,7 @@ if ( ! class_exists( 'YAMS' ) )
           , -1
           , $count
         );
-      
+
       // If default text was specified..
       if (is_countable($templates) && ( count( $templates ) == 2 ))
       {
@@ -5213,7 +5216,7 @@ if ( ! class_exists( 'YAMS' ) )
 
       // It *might* be safe to unset this here
       // unset( $this->itsYamsRepeatContent[ $yamsCounter ] );
-      
+
       if ( is_null( $currentLangContent ) )
       {
         $currentLangContent = $content;

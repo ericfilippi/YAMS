@@ -20,12 +20,12 @@ if ( ! class_exists( 'YamsUtils' ) )
 
     public static function IsUTF8()
     {
-      global $modx;      
+      global $modx;
       if ( $modx->getConfig('modx_charset') == 'UTF-8')
       {
         return TRUE;
       }
-      return FALSE;      
+      return FALSE;
     }
 
     public static function CharSet()
@@ -47,7 +47,7 @@ if ( ! class_exists( 'YamsUtils' ) )
           {
             return 'u';
           }
-          return '';        
+          return '';
       }
     }
 
@@ -69,7 +69,7 @@ if ( ! class_exists( 'YamsUtils' ) )
         '',
         $string
         );
-      
+
       if ( is_null( $cleanedString ) )
       {
         return FALSE;
@@ -82,10 +82,10 @@ if ( ! class_exists( 'YamsUtils' ) )
     public static function CountChars( $string )
     {
       global $modx;
-      
+
       // This function counts the number of characters (not bytes) in a string.
       // strlen returns the number of bytes.
-      $encoding = $modx->getConfig('charset');
+      $encoding = $modx->getConfig('modx_charset');
 
       if ( $encoding != 'UTF-8' )
       {
@@ -99,7 +99,7 @@ if ( ! class_exists( 'YamsUtils' ) )
 
       return preg_match_all( '/./us', $string, $matches );
     }
-    
+
     public static function IsValidUTF8(
       &$string
       , $replacementString = ' '
@@ -348,7 +348,7 @@ if ( ! class_exists( 'YamsUtils' ) )
       return $isValidUTF8;
 
     }
-    
+
     public static function Escape(
       $string
       , $doubleEncode = TRUE
@@ -361,7 +361,7 @@ if ( ! class_exists( 'YamsUtils' ) )
       // within html or xml
       // By default will remove invalid characters from UTF-8
       // It will also remove any control characters.
-      
+
       if (
         self::IsUTF8()
         && $enforceWellFormedUTF8
@@ -369,7 +369,7 @@ if ( ! class_exists( 'YamsUtils' ) )
       {
         self::IsValidUTF8( $string );
       }
-      
+
       if ( $stripControlCodes )
       {
         $string = self::StripControlCodes( $string );
@@ -417,7 +417,7 @@ if ( ! class_exists( 'YamsUtils' ) )
         , self::CharSet()
         );
     }
-    
+
     public static function Clean(
       $string
       , $doubleEncode = TRUE
@@ -656,7 +656,7 @@ if ( ! class_exists( 'YamsUtils' ) )
     }
 
   }
-  
+
 }
 
 ?>

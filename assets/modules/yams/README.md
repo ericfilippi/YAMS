@@ -1,6 +1,11 @@
 YAMS: Yet Another Multilingual Solution
 ---------------------------------------
 
+Version 1.3.1
+- fix undefined variable $nMatchingAliases in yams.class.inc.PHxParser line 2814
+- fix undefined index index charset -> modx_charset in yams.utils.class.inc.php line 88
+- fix undefined property public $itsEncodingModifier in yams.class.inc.php
+
 Version: 1.3.0 (last update 03/06/2020)
 
 Author: PMS  
