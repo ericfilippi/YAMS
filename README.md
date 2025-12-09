@@ -86,7 +86,7 @@ to develop multilingual websites. The following features are currently implement
 YAMS has been developed on MODx v0.9.6.3+ and EVO 1.4+, with PHP >= 5.2.6-3.
 It will not work on servers running PHP 4.
 
-ManagerManager is not required for YAMS to function, but is recommended. YAMS
+ManagerManager (deprecated on Evo v2 and v3) is not required for YAMS to function, but is recommended. YAMS
 can use ManagerManager to hide redundant document variables and organise the
 language fields in the document view.
 
@@ -188,9 +188,9 @@ To set up ManagerManager so that it provides a tabbed document interface, please
 do the following:
 
 1. Check that the ManagerManager plugin is installed under
-   Elements > Manage Elements > Plugins. If not, it can be obtained from the
-   MODx repository:
-   http://modxcms.com/extras/package/?package=255
+   Elements > Manage Elements > Plugins. If not, it can be obtained from
+   - evo extra repository : https://extras.evo.im/packages/deprecated/managermanager2.html
+   - GitHub repository for manual install : https://github.com/extras-evolution/ManagerManager
    The latest version is generally recommended, but please keep an eye on the
    forums for reports of any problems.
 2. Modify the ManagerManager plugin configuration so that it knows to find
